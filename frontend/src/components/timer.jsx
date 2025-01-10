@@ -12,29 +12,32 @@ export function StopWatch() {
 				setElapsedTime(Date.now() - startTimeRef.current);
 			}, 10);
 		}
-		return () => {};
+		return () => {
+			clearInterval(intervalIdRef.current);
+		};
 	}, [isRunning]);
 	function start() {
-		setIsRunning(false);
+		setIsRunning(true);
+		startTimeRef.current = Date.now() - elapsedTime;
 	}
 	function stop() {
 		setIsRunning(false);
 	}
+
 	function reset() {
 		setElapsedTime(0);
 		setIsRunning(false);
 	}
 	function formatTime() {
-		let hours = Math.floor(elapsedTime / (1000 * 60 * 60));
-		let minutes = Math.floor((elapsedTime / (1000 * 60 * 60)) % 60);
-		let seconds = Math.floor(elapsedTime / (1000 % 60));
-		let milliseconds = Math.floor((elapsedTime % 1000) / 10);
+		let hours = Math.floor(elapsedTime / 360000);
+		let minutes = Math.floor((elapsedTime % 360000) / 60000);
+		let seconds = Math.floor((elapsedTime % 60000) / 1000);
 
 		hours = String(hours).padStart(2, "0");
 		minutes = String(minutes).padStart(2, "0");
 		seconds = String(seconds).padStart(2, "0");
-		milliseconds = String(milliseconds).padStart(2, "0");
-		return `${minutes}:${seconds}:${milliseconds}`;
+
+		return `${hours}:${minutes}:${seconds}`;
 	}
 	return (
 		<div className="flex flex-col items-center bg-[hsl(0,0%,95%)]">
@@ -43,13 +46,13 @@ export function StopWatch() {
 					{formatTime()}
 				</div>
 				<div className="controlButton">
-					<button onClick={start} className="start-button">
+					<button onClick={start} className="hover:bg-sky-700 bg-zinc-800">
 						Start
 					</button>
-					<button onClick={stop} className="stop-button">
+					<button onClick={stop} className="hover:bg-sky-700 bg-zinc-800">
 						Stop
 					</button>
-					<button onClick={reset} className="reset-button">
+					<button onClick={reset} className="hover:bg-sky-700 bg-zinc-800">
 						Reset
 					</button>
 				</div>
