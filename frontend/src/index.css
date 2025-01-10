@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.controlButton {
+	@apply text-2xl font-bold py-[10px] px-[20px] m-5 min-w-32 border-none rounded-lg cursor-pointer text-white ease-in	 duration-700;
+}
