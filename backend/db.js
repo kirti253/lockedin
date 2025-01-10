@@ -17,14 +17,13 @@ const adminSchmea = new Schema({
   email: { type: String, unique: true },
 });
 const tasklistSchema = new Schema({
-  serialno: ObjectId,
   userId: ObjectId,
   title: String,
   description: String,
   date: Date,
   startTime: Date,
   stopTime: Date,
-  timeduration: Number,
+  duration: Number,
 });
 
 const userModel = mongoose.model("user", userSchema);

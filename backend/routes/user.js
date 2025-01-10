@@ -5,43 +5,41 @@ const userRouter = Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const z = require("zod");
-const { userMiddleware } = userRouter.post(
-  "/signup",
-  async function (req, res) {
-    const requireBody = z.object({
-      username: z.string().min(3).max(100),
-      email: z.string().min(3).max(100).email(),
-      password: z.string().min(3).max(100),
+const { userMiddleware } = require("../middleware/user");
+userRouter.post("/signup", async function (req, res) {
+  const requireBody = z.object({
+    username: z.string().min(3).max(100),
+    email: z.string().min(3).max(100).email(),
+    password: z.string().min(3).max(100),
+  });
+
+  const parseDataSuccsess = requireBody.safeParse(req.body);
+  if (!parseDataSuccsess.success) {
+    return res.json({
+      message: "incorrect format",
+      error: parseDataSuccsess.error,
     });
-
-    const parseDataSuccsess = requireBody.safeParse(req.body);
-    if (!parseDataSuccsess.success) {
-      return res.json({
-        message: "incorrect format",
-        error: parseDataSuccsess.error,
-      });
-    }
-
-    const { username, email, password } = req.body;
-    const hassPassword = await bcrypt.hash(password, 10);
-    try {
-      await userModel.create({
-        username: username,
-        email: email,
-        password: hassPassword,
-      });
-      res.json({
-        message: "user created successfully",
-      });
-    } catch (err) {
-      console.error("Error creating user:", err);
-      res.status(500).json({
-        message: "Internal server error",
-        error: err.message,
-      });
-    }
   }
-);
+
+  const { username, email, password } = req.body;
+  const hassPassword = await bcrypt.hash(password, 10);
+  try {
+    await userModel.create({
+      username: username,
+      email: email,
+      password: hassPassword,
+    });
+    res.json({
+      message: "user created successfully",
+    });
+  } catch (err) {
+    console.error("Error creating user:", err);
+    res.status(500).json({
+      message: "Internal server error",
+      error: err.message,
+    });
+  }
+});
 userRouter.post("/signin", async function (req, res) {
   const requireBody = z.object({
     email: z.string().email(),
