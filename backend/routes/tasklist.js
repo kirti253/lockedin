@@ -2,6 +2,7 @@ const { Router } = require("express");
 const tasklistRouter = Router();
 const { userModel, tasklistModel } = require("../db");
 const { userMiddleware } = require("../middleware/user");
+const { taskMiddleware } = require("../middleware/tasklist");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { z } = require("zod");
@@ -47,7 +48,7 @@ tasklistRouter.post("/task", userMiddleware, async function (req, res) {
     res.status(500).json({ message: "internal server rerror" });
   }
 });
-tasklistRouter.get("/list", userMiddleware, async function (req, res) {
+tasklistRouter.get("/list", taskMiddleware, async function (req, res) {
   try {
     const tasks = await tasklistModel.find({
       userId: req.userId,
@@ -74,6 +75,15 @@ tasklistRouter.get("/list", userMiddleware, async function (req, res) {
   }
 });
 
+tasklistRouter.delete("/deletetask", taskMiddleware, async (req, res) => {
+  try {
+    await tasklistModel.deleteOne({ _id: req.task._id });
+    res.status(200).json({ message: "Task deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 module.exports = {
   tasklistRouter: tasklistRouter,
 };
