@@ -81,11 +81,15 @@ export function StopWatch() {
 		<div className="h-full w-full">
 			<div className="flex flex-col items-center h-full">
 				<div className="flex flex-col items-center  p-[30px] h-screen">
-					<div className="text-[200px] font-mono font-bold text-[#eeeeee]   mt-40 [text-shadow:5px_5px_15px_#800080] ">
+					<div
+						className={`text-[200px] font-mono font-bold ${
+							isRunning ? "text-slate-400" : "text-[#eeeeee5d]"
+						}  mt-40`}
+					>
 						{formatTime()}
 					</div>
 					<div className="text-white ">
-						<p className="tracking-widest mb-10 -mt-10 text-xl [text-shadow:2px_2px_3px_#800080]">
+						<p className="tracking-widest mb-10 -mt-10 text-xl ">
 							{currentDate}
 						</p>
 					</div>
