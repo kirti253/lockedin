@@ -36,6 +36,7 @@ export function StopWatch() {
 		setTask("");
 		setIsRunning(false);
 		setIsPaused(false);
+		setElapsedTime(0);
 	};
 
 	// function reset() {
@@ -83,7 +84,7 @@ export function StopWatch() {
 				<div className="flex flex-col items-center  p-[30px] h-screen">
 					<div
 						className={`text-[200px] font-mono font-bold ${
-							isRunning ? "text-slate-400" : "text-[#eeeeee5d]"
+							isRunning ? "text-slate-200" : "text-[#eeeeee5d]"
 						}  mt-40`}
 					>
 						{formatTime()}
