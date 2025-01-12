@@ -7,10 +7,10 @@ import { Navbar } from "./components/navbar";
 function App() {
 	return (
 		<div>
-			{/* <StopWatch />
+			<StopWatch />
 			<Card />
-			<Footer /> */}
-			<Navbar />
+			{/* <Navbar /> */}
+			<Footer />
 		</div>
 	);
 }

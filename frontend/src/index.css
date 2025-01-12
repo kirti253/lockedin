@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+.white-background {
+	@apply flex rounded-lg shadow-[0px_0px_10px_2px_rgba(255,255,255,0.9)]   transition-all ease-in duration-500  mt-6 p-4;
+}
+
+body {
 	background-color: rgb(0, 0, 0);
+	color: whit;
 }
 .controlButton {
 	display: flex;

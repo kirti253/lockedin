@@ -1,51 +1,86 @@
-import { FaLocationDot } from "react-icons/fa6";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaGithub } from "react-icons/fa";
 import { GrInstagram } from "react-icons/gr";
 
 export function Footer() {
 	return (
-		<div className="text-white flex justify-evenly w-3/4 mx-auto mt-6 ">
-			<div className="w-1/4 mr-5 text-3xl font-bold">
-				<p>Explore the beauty of effective time management with us</p>
-			</div>
-			<div className="w-1/2 mr-12 tracking-widest mt-2  text-right">
-				<p className="flex justify-end">
-					<FaLocationDot className="mt-1 mr-2" />
-					Chandigarh
-				</p>
-			</div>
-			<div className="flex flex-col">
-				<div className="flex ">
-					<p className="mr-11">hey@adityapant.com</p>
-					<a href="https://x.com/adityapant_">
-						{" "}
-						<RiTwitterXLine />{" "}
-					</a>
-					<p>
-						<link href=""></link>
-					</p>
-					<p>
-						<FaGithub size={15} className="mr-6 mt-1" />
-					</p>
-					<p>
-						<GrInstagram size={15} className="mr-6 mt-1" />
-					</p>
-				</div>
-				<div className="flex ">
-					<p className="mr-6">kirti25032007@gmail.com</p>
+		<div>
+			<p>
+				<footer className="bg-gray-800 text-white py-4">
+					<div className="container mx-auto px-4">
+						<p className="text-center text-sm mb-4">
+							Created by Aditya Pant and Kirti
+						</p>
+						<div className="flex justify-center space-x-8">
+							{/* Your Profiles */}
+							<div>
+								<p className="text-yellow-400 font-semibold text-center">
+									Aditya
+								</p>
+								<div className="flex flex-col items-center space-y-2">
+									<a
+										href="https://github.com/AdityaaPant"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="hover:text-yellow-400 transition-colors"
+									>
+										<FaGithub />
+									</a>
+									<a
+										href="https://x.com/adityapant_ "
+										target="_blank"
+										rel="noopener noreferrer"
+										className="hover:text-yellow-400 transition-colors"
+									>
+										<RiTwitterXLine />
+									</a>
+									<a
+										href="https://www.instagram.com/adityapant_/ "
+										target="_blank"
+										rel="noopener noreferrer"
+										className="hover:text-yellow-400 transition-colors"
+									>
+										<GrInstagram />
+									</a>
+								</div>
+							</div>
 
-					<p>
-						<RiTwitterXLine size={15} className="mr-6 mt-1" />
-					</p>
-					<p>
-						<FaGithub size={15} className="mr-6 mt-1" />
-					</p>
-					<p>
-						<GrInstagram size={15} className="mr-6 mt-1" />
-					</p>
-				</div>
-			</div>
+							{/* Friend's Profiles */}
+							<div>
+								<p className="text-yellow-400 font-semibold text-center">
+									Kirti
+								</p>
+								<div className="flex flex-col items-center space-y-2">
+									<a
+										href="https://github.com/kirti253"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="hover:text-yellow-400 transition-colors"
+									>
+										<FaGithub />
+									</a>
+									<a
+										href="https://x.com/Kirti_253"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="hover:text-yellow-400 transition-colors"
+									>
+										<RiTwitterXLine />
+									</a>
+									<a
+										href="https://www.instagram.com/_kkirtiii_/"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="hover:text-yellow-400 transition-colors"
+									>
+										<GrInstagram />
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</p>
 		</div>
 	);
 }

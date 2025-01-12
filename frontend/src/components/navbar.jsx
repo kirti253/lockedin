@@ -1,11 +1,51 @@
 export function Navbar() {
 	return (
-		<div className="text-white flex justify-center">
-			<div className="flex rounded-lg border-y border-x w-3/4 px-4 p-4  hover:bg-white hover:ease-in hover:duration-700 mt-5">
-				<p className="w-[100px]">Sr.no</p>
-				<p className="w-[150px]">Date</p>
-				<p className="flex-auto">Description</p>
-				<p className="w-[100px]">Duration</p>
+		<div className="h-screen ">
+			<div className=" text-gray-300 flex justify-center  flex-col w-11/12 mx-auto mt-10">
+				<div className="white-background  mb-4">
+					<p className="w-[100px] text-center">Sr.no</p>
+					<p className="w-[150px] text-center">Date</p>
+					<p className="flex-auto text-left">Title</p>
+					<p className="w-[150px] text-center">Duration</p>
+				</div>
+				<div className="white-background  bg-[url('')]">
+					<p className="w-[100px] text-center">1</p>
+					<p className="w-[150px]  text-center">25 Jan 2025</p>
+					<p
+						className="flex-auto text-left"
+						style={{
+							width: "200px", // Set the width for text truncation
+							whiteSpace: "nowrap",
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+						}}
+					>
+						100 days of Code <br />
+						this is some test sentence this is some test sentence this is some
+						test sentence this is some test sentence
+						<br />
+						helo
+					</p>
+					<p className="w-[150px] text-center">2 hours</p>
+				</div>
+				<div className="white-background  bg-[url('')]">
+					<p className="w-[100px] text-center">2</p>
+					<p className="w-[150px]  text-center">25 Jan 2025</p>
+					<p
+						className="flex-auto text-left"
+						style={{
+							width: "200px", // Set the width for text truncation
+							whiteSpace: "nowrap",
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+						}}
+					>
+						this is some test sentence
+						<br />
+						helo
+					</p>
+					<p className="w-[150px] text-center">2 hours</p>
+				</div>
 			</div>
 		</div>
 	);

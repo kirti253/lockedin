@@ -84,12 +84,12 @@ export function StopWatch() {
 				<div className="flex flex-col items-center  p-[30px] h-screen">
 					<div
 						className={`text-[200px] font-mono font-bold ${
-							isRunning ? "text-slate-200" : "text-[#eeeeee5d]"
+							isRunning ? "text-gray-300" : "text-muted-foreground"
 						}  mt-40`}
 					>
 						{formatTime()}
 					</div>
-					<div className="text-white ">
+					<div className="text-gray-300">
 						<p className="tracking-widest mb-10 -mt-10 text-xl ">
 							{currentDate}
 						</p>
@@ -105,7 +105,7 @@ export function StopWatch() {
 									placeholder="Enter the task done during this time"
 									value={task}
 									onChange={(e) => setTask(e.target.value)}
-									className="border border-gray-300 rounded px-2 py-1 w-96 text-white"
+									className="border bg-transparent border-gray-300 rounded px-2 py-1 w-96 text-gray-300"
 								></textarea>
 
 								<Button onClick={handleSubmit} className="mt-10 w-40">
@@ -114,7 +114,7 @@ export function StopWatch() {
 							</div>
 						)}
 						{!isRunning && !isPaused && (
-							<Button onClick={start} className="w-40">
+							<Button onClick={start} className="w-40 bg-gray-300">
 								Start
 							</Button>
 						)}
