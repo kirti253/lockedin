@@ -10,7 +10,7 @@ const { z } = require("zod");
 tasklistRouter.post("/task", userMiddleware, async function (req, res) {
   const tasklistSchema = z.object({
     title: z.string().min(3).max(100),
-    description: z.string().min(3).max(1000),
+
     startTime: z.string().datetime({ offset: true }),
     stopTime: z.string().datetime({ offset: true }),
   });
@@ -21,7 +21,7 @@ tasklistRouter.post("/task", userMiddleware, async function (req, res) {
       error: parseResult.error.errors,
     });
   }
-  const { title, description, startTime, stopTime } = parseResult.data;
+  const { title, startTime, stopTime } = parseResult.data;
   try {
     const start = new Date(startTime);
     const stop = new Date(stopTime);
@@ -34,7 +34,7 @@ tasklistRouter.post("/task", userMiddleware, async function (req, res) {
     const task = await tasklistModel.create({
       userId: req.userId,
       title,
-      description,
+
       startTime: start,
       stopTime: stop,
       duration,
@@ -57,7 +57,7 @@ tasklistRouter.get("/list", taskMiddleware, async function (req, res) {
     const tasklisted = tasks.map((task) => ({
       userId: req.userId,
       title: task.title,
-      description: task.description,
+
       startTime: task.startTime,
       stopTime: task.stopTime,
       duration: task.duration,
@@ -83,6 +83,32 @@ tasklistRouter.delete("/deletetask", taskMiddleware, async (req, res) => {
     console.error("Error deleting task:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+});
+tasklistRouter.put("/update", taskMiddleware, async function (req, res) {
+  const requireBody = z.object({
+    taskId: z.string().min(5),
+    title: z.string().min(5),
+  });
+  const parseResult = requireBody.safeParse(req.body);
+  if (!parseResult.success) {
+    return res.status(400).json({
+      message: "Incorrect data format",
+      error: parseResult.error.errors,
+    });
+  }
+
+  const { taskId, title } = req.body;
+  const task = await tasklistModel.updateMany(
+    {
+      _id: taskId,
+    },
+    {
+      title: title || task.title,
+    }
+  );
+  res.status(200).json({
+    message: "task updated",
+  });
 });
 module.exports = {
   tasklistRouter: tasklistRouter,

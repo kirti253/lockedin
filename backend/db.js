@@ -20,7 +20,7 @@ const tasklistSchema = new Schema({
   taskId: ObjectId,
   userId: ObjectId,
   title: String,
-  description: String,
+
   date: Date,
   startTime: Date,
   stopTime: Date,
