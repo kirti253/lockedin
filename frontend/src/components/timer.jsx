@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export function StopWatch() {
 	const [isRunning, setIsRunning] = useState(false);
@@ -84,7 +84,7 @@ export function StopWatch() {
 				<div className="flex flex-col items-center  p-[30px] h-screen">
 					<div
 						className={`text-[200px] font-mono font-bold ${
-							isRunning ? "text-gray-300" : "text-muted-foreground"
+							isRunning ? "text-gray-300" : "text-slate-400"
 						}  mt-40`}
 					>
 						{formatTime()}
@@ -98,15 +98,7 @@ export function StopWatch() {
 					<div className="controlButton flex space-x-4">
 						{isPaused && (
 							<div className="flex items-center space-x-4 flex-col">
-								<textarea
-									name=""
-									id=""
-									type="text"
-									placeholder="Enter the task done during this time"
-									value={task}
-									onChange={(e) => setTask(e.target.value)}
-									className="border bg-transparent border-gray-300 rounded px-2 py-1 w-96 text-gray-300"
-								></textarea>
+								<Textarea placeholder="Type your message here." />
 
 								<Button onClick={handleSubmit} className="mt-10 w-40">
 									Submit
@@ -114,7 +106,7 @@ export function StopWatch() {
 							</div>
 						)}
 						{!isRunning && !isPaused && (
-							<Button onClick={start} className="w-40 bg-gray-300">
+							<Button onClick={start} className="w-40 ">
 								Start
 							</Button>
 						)}
