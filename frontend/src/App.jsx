@@ -1,4 +1,3 @@
-import { SignUp } from "./components/signup";
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -6,32 +5,37 @@ import {
 	Navigate,
 } from "react-router-dom";
 
-import { StopWatch } from "./components/timer";
-import { Card } from "./components/storage";
+import StopWatch from "./components/timer";
+import Card from "./components/storage";
 import Footer from "./components/footer";
-import { Navbar } from "./components/navbar";
+import Navbar from "./components/navbar";
 import axios from "axios";
+import { Home } from "lucide-react";
 
+function AllComponents() {
+	return (
+		<div>
+			<StopWatch />
+			<Card />
+			<Footer />
+		</div>
+	);
+}
 function App() {
 	return (
 		<div>
 			<Router>
 				<Routes>
-					<Route exact path="/" element={<StopWatch />} />
+					<Route exact path="/" element={<AllComponents />} />
+					<Route exact path="/stopwatch" element={<StopWatch />} />
+
+					<Route path="/card" element={<Card />} />
 
 					<Route path="/footer" element={<Footer />} />
 
-					<Route path="/contactus" element={<Card />} />
-
-					<Route path="*" element={<Navigate to="/" />} />
+					<Route path="*" element={<AllComponents />} />
 				</Routes>
 			</Router>
-			{/* <SignUp />
-			// <Navbar />
-			[]
-			<StopWatch />
-			<Card />
-			<Footer /> */}
 		</div>
 	);
 }

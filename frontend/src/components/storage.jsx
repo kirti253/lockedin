@@ -8,14 +8,16 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 
-export function Card() {
+export default function Card() {
 	return (
 		<div
 			className="h-screen
 		"
 		>
+			<h2 className="text-muted-foreground    text-center">
+				A list of your recent tasks.
+			</h2>
 			<Table className="w-11/12 mx-auto">
-				<TableCaption>A list of your recent tasks.</TableCaption>
 				<TableHeader>
 					<TableRow>
 						<TableHead className="w-[100px]">Sr no</TableHead>

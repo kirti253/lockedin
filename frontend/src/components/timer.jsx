@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-export function StopWatch() {
+export default function StopWatch() {
 	const [isRunning, setIsRunning] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
 	const [task, setTask] = useState("");
@@ -10,6 +10,23 @@ export function StopWatch() {
 	const [currentDate, setCurrentDate] = useState(getDate());
 	const intervalIdRef = useRef(null);
 	const startTimeRef = useRef(0);
+
+	// const [durationResponse, setDurationResponse] = useState(null);
+	// const [isLoading, setIsLoading] = useState(true);
+	// const fetchDuration = async () => {
+	// 	try {
+	// 		const response = await axios.post("http://localhost:5173/stopwatch");
+	// 		setDurationResponse(response.data);
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	} finally {
+	// 		setIsLoading(false);
+	// 	}
+	// };
+	// useEffect(() => {
+	// 	fetchDuration();
+	// }, []);
+	// console.log(durationResponse);
 
 	useEffect(() => {
 		if (isRunning) {
