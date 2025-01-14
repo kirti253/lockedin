@@ -8,7 +8,7 @@ import {
 import StopWatch from "./components/timer";
 import Card from "./components/storage";
 import Footer from "./components/footer";
-import Verified from "./components/success";
+
 import axios from "axios";
 import { Home } from "lucide-react";
 import SignUp from "./components/signup";
@@ -19,8 +19,7 @@ function AllComponents() {
 			{/* <StopWatch />
       <Card />
       <Footer /> */}
-			{/* <SignUp /> */}
-			<Verified />
+			<SignUp />
 		</div>
 	);
 }
