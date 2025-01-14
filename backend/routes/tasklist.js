@@ -10,7 +10,6 @@ const { z } = require("zod");
 tasklistRouter.post("/task", userMiddleware, async function (req, res) {
   const tasklistSchema = z.object({
     title: z.string().min(3).max(100),
-
     duration: z.number().min(1),
   });
   const parseResult = tasklistSchema.safeParse(req.body);
