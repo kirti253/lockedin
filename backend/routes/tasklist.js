@@ -11,8 +11,7 @@ tasklistRouter.post("/task", userMiddleware, async function (req, res) {
   const tasklistSchema = z.object({
     title: z.string().min(3).max(100),
 
-    startTime: z.string().datetime({ offset: true }),
-    stopTime: z.string().datetime({ offset: true }),
+    duration: z.number().min(1),
   });
   const parseResult = tasklistSchema.safeParse(req.body);
   if (!parseResult.success) {
@@ -21,22 +20,11 @@ tasklistRouter.post("/task", userMiddleware, async function (req, res) {
       error: parseResult.error.errors,
     });
   }
-  const { title, startTime, stopTime } = parseResult.data;
+  const { title, duration } = parseResult.data;
   try {
-    const start = new Date(startTime);
-    const stop = new Date(stopTime);
-    if (start >= stop) {
-      return res.status(400).json({
-        message: "stop time must after start",
-      });
-    }
-    const duration = Math.floor((stop - start) / 1000);
     const task = await tasklistModel.create({
       userId: req.userId,
       title,
-
-      startTime: start,
-      stopTime: stop,
       duration,
     });
     res.status(201).json({
@@ -45,7 +33,7 @@ tasklistRouter.post("/task", userMiddleware, async function (req, res) {
     });
   } catch (error) {
     console.error("error creating task :", error);
-    res.status(500).json({ message: "internal server rerror" });
+    res.status(500).json({ message: "internal server error" });
   }
 });
 tasklistRouter.get("/list", taskMiddleware, async function (req, res) {
@@ -57,9 +45,6 @@ tasklistRouter.get("/list", taskMiddleware, async function (req, res) {
     const tasklisted = tasks.map((task) => ({
       userId: req.userId,
       title: task.title,
-
-      startTime: task.startTime,
-      stopTime: task.stopTime,
       duration: task.duration,
       createdDate: task.createDate,
     }));
