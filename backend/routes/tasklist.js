@@ -10,6 +10,7 @@ const { z } = require("zod");
 tasklistRouter.post("/task", userMiddleware, async function (req, res) {
 	const tasklistSchema = z.object({
 		title: z.string().min(3).max(100),
+
 		startTime: z.string().datetime({ offset: true }),
 		stopTime: z.string().datetime({ offset: true }),
 	});
