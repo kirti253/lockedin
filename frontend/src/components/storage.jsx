@@ -7,6 +7,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import axios from "axios";
 
 export default function Card() {
 	return (
