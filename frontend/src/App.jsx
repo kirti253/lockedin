@@ -3,10 +3,12 @@ import {
   Routes,
   Route,
   Navigate,
+  Link,
 } from "react-router-dom";
 
 import StopWatch from "./components/timer";
 import Card from "./components/storage";
+import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 
 import axios from "axios";
@@ -16,17 +18,19 @@ import SignUp from "./components/signup";
 function AllComponents() {
   return (
     <div>
+      <Navbar />
+
       <StopWatch />
       <Card />
       <Footer />
-      <SignUp />
     </div>
   );
 }
+
 function App() {
   return (
-    <div>
-      <Router>
+    <Router>
+      <div>
         <Routes>
           <Route exact path="/" element={<AllComponents />} />
           <Route exact path="/stopwatch" element={<StopWatch />} />
@@ -34,11 +38,12 @@ function App() {
           <Route path="/card" element={<Card />} />
 
           <Route path="/footer" element={<Footer />} />
+          <Route path="/signin" element={<SignUp />} />
 
           <Route path="*" element={<AllComponents />} />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 export default App;
