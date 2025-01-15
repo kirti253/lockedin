@@ -3,6 +3,13 @@ import { Input } from "@/components/ui/input";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+} from "react-router-dom";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -62,6 +69,11 @@ export default function SignUp() {
           </div>
         </form>
       </div>
+      <p>
+        <Link to="/" className="text-white">
+          Continue to the home page
+        </Link>
+      </p>
     </div>
   );
 }
