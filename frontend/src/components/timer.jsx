@@ -62,7 +62,7 @@ export default function StopWatch() {
 	// 	setIsPaused(false);
 	// }
 	function formatTime() {
-		let hours = Math.floor(elapsedTime / 360000);
+		let hours = Math.floor(elapsedTime / 3600000);
 		let minutes = Math.floor((elapsedTime % 360000) / 60000);
 		let seconds = Math.floor((elapsedTime % 60000) / 1000);
 
