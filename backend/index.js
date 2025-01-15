@@ -9,7 +9,8 @@ app.use("/", healthcheckrouter);
 const { userRouter } = require("./routes/user");
 const { adminRouter } = require("./routes/admin");
 const { tasklistRouter } = require("./routes/tasklist");
-
+const cors = require("cors");
+app.use(cors());
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/tasklist", tasklistRouter);
