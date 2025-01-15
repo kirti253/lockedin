@@ -14,10 +14,11 @@ import Footer from "./components/footer";
 import axios from "axios";
 import { Home } from "lucide-react";
 import SignUp from "./components/signup";
-
+import Nav from "./components/navbar";
 function AllComponents() {
   return (
     <div>
+      <Nav />
       <StopWatch />
       <Card />
       <Footer />
@@ -28,19 +29,6 @@ function AllComponents() {
 function App() {
   return (
     <div>
-      <div className="flex justify-center  border-b p-2">
-        <nav className="text-white flex justify-between w-11/12 ">
-          <div>LockedIn</div>
-          <div>
-            <Button>
-              <Link to="/signin" className="text-black">
-                Login
-              </Link>
-            </Button>
-          </div>
-        </nav>
-      </div>
-
       <Router>
         <div>
           <Routes>

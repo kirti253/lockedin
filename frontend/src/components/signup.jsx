@@ -70,7 +70,7 @@ export default function SignUp() {
         </form>
       </div>
       <p>
-        <Link to="/" className="text-white">
+        <Link to="/" className="text-white text-center">
           Continue to the home page
         </Link>
       </p>
