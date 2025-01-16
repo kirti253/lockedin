@@ -16,6 +16,7 @@ import { Home } from "lucide-react";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
 import Nav from "./components/navbar";
+import { RefreshProvider } from "./components/refresh";
 function AllComponents() {
   return (
     <div>
@@ -30,22 +31,24 @@ function AllComponents() {
 function App() {
   return (
     <div>
-      <Router>
-        <div>
-          <Routes>
-            <Route exact path="/" element={<AllComponents />} />
-            <Route exact path="/stopwatch" element={<StopWatch />} />
+      <RefreshProvider>
+        <Router>
+          <div>
+            <Routes>
+              <Route exact path="/" element={<AllComponents />} />
+              <Route exact path="/stopwatch" element={<StopWatch />} />
 
-            <Route path="/card" element={<Card />} />
+              <Route path="/card" element={<Card />} />
 
-            <Route path="/footer" element={<Footer />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
+              <Route path="/footer" element={<Footer />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
 
-            <Route path="*" element={<AllComponents />} />
-          </Routes>
-        </div>
-      </Router>
+              <Route path="*" element={<AllComponents />} />
+            </Routes>
+          </div>
+        </Router>
+      </RefreshProvider>
     </div>
   );
 }
