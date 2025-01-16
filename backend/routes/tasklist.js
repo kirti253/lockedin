@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const tasklistRouter = Router();
-const { userModel, tasklistModel } = require("../db");
+const { tasklistModel } = require("../db");
 const { authMiddleware } = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -10,6 +10,7 @@ tasklistRouter.post("/task", authMiddleware, async function (req, res) {
 	const tasklistSchema = z.object({
 		title: z.string().min(3).max(100),
 		duration: z.string().min(1),
+		date: z.string().min(1),
 	});
 	const parseResult = tasklistSchema.safeParse(req.body);
 	if (!parseResult.success) {
@@ -18,12 +19,13 @@ tasklistRouter.post("/task", authMiddleware, async function (req, res) {
 			error: parseResult.error.errors,
 		});
 	}
-	const { title, duration } = parseResult.data;
+	const { title, duration, date } = parseResult.data;
 	try {
 		const task = await tasklistModel.create({
 			userId: req.userId,
 			title,
 			duration,
+			date,
 		});
 		res.status(201).json({
 			message: "Task created successfully",
@@ -44,7 +46,8 @@ tasklistRouter.get("/list", authMiddleware, async function (req, res) {
 			userId: req.userId,
 			title: task.title,
 			duration: task.duration,
-			createdDate: task.createDate,
+			createdDate: task.createdAt,
+			date: task.date,
 		}));
 		res.status(200).json({
 			message: "task fetched successfully",

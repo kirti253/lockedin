@@ -5,7 +5,7 @@ const userRouter = Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const z = require("zod");
-const { userMiddleware } = require("../middleware/user");
+
 userRouter.post("/signup", async function (req, res) {
 	const requireBody = z.object({
 		username: z.string().min(3).max(100),
