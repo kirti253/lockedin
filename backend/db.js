@@ -22,8 +22,6 @@ const tasklistSchema = new Schema({
   title: String,
 
   date: Date,
-  startTime: Date,
-  stopTime: Date,
   duration: Number,
 });
 
