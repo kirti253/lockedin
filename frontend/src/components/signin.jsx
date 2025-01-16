@@ -11,23 +11,29 @@ import {
 	Link,
 } from "react-router-dom";
 
-export default function SignUp() {
+export default function SignIn() {
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [signedIn, setSignedIn] = useState("");
 	const navigate = useNavigate();
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
 		axios
-			.post("http://localhost:3000/user/signup", {
-				username,
+			.post("http://localhost:3000/user/signin", {
 				email,
-				password: password,
+				password,
 			})
 			.then((result) => {
 				console.log(result);
-				navigate("/");
+				const token = result.data.token;
+				if (token) {
+					localStorage.setItem("token", token);
+					console.log(token);
+					navigate("/");
+				} else {
+					console.error("No token received from the server.");
+				}
 			})
 			.catch((err) => console.log(err));
 	};
@@ -38,16 +44,7 @@ export default function SignUp() {
 				<img className=" rounded-md ml-5" src="/src/assets/signup.svg" />
 				<form action="" className="mx-10 flex flex-col" onSubmit={handleSubmit}>
 					<div className="mx-10  flex  flex-col ">
-						<p className="text-white text-center ">Sign Up</p>
-						<div>
-							<p className="block text-sm font-medium mb-1">Username</p>
-							<Input
-								type="text"
-								placeholder="Username"
-								className="w-64"
-								onChange={(e) => setUsername(e.target.value)}
-							/>
-						</div>
+						<p className="text-white text-center mt-5">Sign in</p>
 						<div>
 							<p className="block text-sm font-medium mb-1">Email</p>
 							<Input
@@ -63,10 +60,6 @@ export default function SignUp() {
 								placeholder="password"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
-						</div>
-						<div>
-							<label className="block text-sm font-medium mb-1">Password</label>
-							<Input type="password" placeholder="Confirm password" />
 						</div>
 						<Button type="submit" className="mt-10">
 							Submit

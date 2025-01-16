@@ -21,7 +21,7 @@ export default function Footer() {
 									rel="noopener noreferrer"
 									className=" transition-colors"
 								>
-									<FaGithub size={13} />
+									<FaGithub size={18} />
 								</a>
 								<a
 									href="https://x.com/adityapant_ "
@@ -29,7 +29,7 @@ export default function Footer() {
 									rel="noopener noreferrer"
 									className=" transition-colors"
 								>
-									<RiTwitterXLine size={13} />
+									<RiTwitterXLine size={18} />
 								</a>
 								<a
 									href="https://www.instagram.com/adityapant_/ "
@@ -37,7 +37,7 @@ export default function Footer() {
 									rel="noopener noreferrer"
 									className=" transition-colors"
 								>
-									<GrInstagram size={13} />
+									<GrInstagram size={18} />
 								</a>
 							</div>
 						</div>
@@ -54,7 +54,7 @@ export default function Footer() {
 									rel="noopener noreferrer"
 									className=" transition-colors"
 								>
-									<FaGithub size={13} />
+									<FaGithub size={18} />
 								</a>
 								<a
 									href="https://x.com/Kirti_253"
@@ -62,7 +62,7 @@ export default function Footer() {
 									rel="noopener noreferrer"
 									className=" transition-colors"
 								>
-									<RiTwitterXLine size={13} />
+									<RiTwitterXLine size={18} />
 								</a>
 								<a
 									href="https://www.instagram.com/_kkirtiii_/"
@@ -70,7 +70,7 @@ export default function Footer() {
 									rel="noopener noreferrer"
 									className=" transition-colors"
 								>
-									<GrInstagram size={13} />
+									<GrInstagram size={18} />
 								</a>
 							</div>
 						</div>

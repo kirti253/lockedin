@@ -8,12 +8,49 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const formatDuration = (durationInMs) => {
+	const totalSeconds = Math.floor(durationInMs / 1000);
+	const hours = Math.floor(totalSeconds / 3600);
+	const minutes = Math.floor((totalSeconds % 3600) / 60);
+	const seconds = Math.floor(totalSeconds % 60);
+
+	// Return the formatted string as "HH:mm"
+	return `${hours}:${minutes.toString().padStart(2, "0")}`;
+};
 
 export default function Card() {
+	const [tasks, setTasks] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	const fetchTasks = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				throw new Error("Token is missing . please log in");
+			}
+			const response = await axios.get("http://localhost:3000/tasklist/list", {
+				headers: {
+					Authorization: token,
+				},
+			});
+			setTasks(response.data.tasks);
+		} catch (err) {
+			console.error("Error fetching tasks", err);
+			setError(err.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+	useEffect(() => {
+		fetchTasks();
+	}, []);
+
 	return (
 		<div
-			className="h-screen
+			className="h-full mb-20
 		"
 		>
 			<h2 className="text-muted-foreground    text-center">
@@ -29,36 +66,18 @@ export default function Card() {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					<TableRow>
-						<TableCell className="font-medium">1</TableCell>
-						<TableCell>12/20/2025</TableCell>
-						<TableCell>
-							X post <br /> 100days of code <br />
-							canteen
-						</TableCell>
-						<TableCell className="text-right">12 HRS</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell className="font-medium">3</TableCell>
-						<TableCell>12/20/2025</TableCell>
-						<TableCell className="w-2/3 ">
-							Title lamba hota h to left to right read krna easy hoje gTitle
-							lamba hota h to left to right read krna easy hoje gTitle lamba
-							hota h to left to right read krna easy hoje gTitle lamba hota h to
-							left to right read krna easy hoje gTitle lamba hota h to left to
-							right read krna easy hoje g
-						</TableCell>
-						<TableCell className="text-right">12 HRS</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell className="font-medium">2</TableCell>
-						<TableCell>12/20/2025</TableCell>
-						<TableCell>
-							X post <br /> 100days of code <br />
-							canteen
-						</TableCell>
-						<TableCell className="text-right">12 HRS</TableCell>
-					</TableRow>
+					{tasks.map((task, index) => (
+						<TableRow key={task._id}>
+							<TableCell className="font-medium">{index + 1}</TableCell>
+							<TableCell>
+								{task.date ? new Date(task.date).toLocaleDateString() : "N/A"}
+							</TableCell>
+							<TableCell>{task.title}</TableCell>
+							<TableCell className="text-right">
+								{formatDuration(task.duration)}{" "}
+							</TableCell>
+						</TableRow>
+					))}
 				</TableBody>
 			</Table>
 			;<div></div>

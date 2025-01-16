@@ -1,8 +1,30 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
 import axios from "axios";
+
+function getDate() {
+	const today = new Date();
+	const monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	let monthIndex = today.getMonth();
+	let monthName = monthNames[monthIndex];
+	const year = today.getFullYear();
+	const date = today.getDate();
+	return `${date} ${monthName} ${year}`;
+}
 
 export default function StopWatch() {
 	const [isRunning, setIsRunning] = useState(false);
@@ -12,23 +34,6 @@ export default function StopWatch() {
 	const [currentDate, setCurrentDate] = useState(getDate());
 	const intervalIdRef = useRef(null);
 	const startTimeRef = useRef(0);
-
-	// const [durationResponse, setDurationResponse] = useState(null);
-	// const [isLoading, setIsLoading] = useState(true);
-	// const fetchDuration = async () => {
-	// 	try {
-	// 		const response = await axios.post("http://localhost:5173/stopwatch");
-	// 		setDurationResponse(response.data);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	} finally {
-	// 		setIsLoading(false);
-	// 	}
-	// };
-	// useEffect(() => {
-	// 	fetchDuration();
-	// }, []);
-	// console.log(durationResponse);
 
 	useEffect(() => {
 		if (isRunning) {
@@ -40,23 +45,45 @@ export default function StopWatch() {
 			clearInterval(intervalIdRef.current);
 		};
 	}, [isRunning]);
+
 	const start = () => {
 		setIsRunning(true);
 		setIsPaused(false);
-
 		startTimeRef.current = Date.now() - elapsedTime;
 	};
+
 	const stop = () => {
 		setIsRunning(false);
 		setIsPaused(true);
 	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		const token = localStorage.getItem("token");
+		console.log(token);
+		console.log("Task (title):", task);
+		console.log("Elapsed Time (duration):", elapsedTime);
+		console.log("Current Date:", currentDate);
+		if (!token) {
+			console.error("Token is missing. Please sign in again.");
+			return;
+		}
+
 		axios
-			.post("http://localhost:3000/tasklist/task", {
-				task,
-				elapsedTime,
-			})
+			.post(
+				"http://localhost:3000/tasklist/task",
+				{
+					title: task,
+					duration: elapsedTime.toString(),
+					date: currentDate,
+				},
+				{
+					headers: {
+						Authorization: token,
+					},
+				}
+			)
 			.then((data) => {
 				console.log(data);
 				setTask("");
@@ -64,17 +91,18 @@ export default function StopWatch() {
 				setIsPaused(false);
 				setElapsedTime(0);
 			})
-			.catch((err) => console.log(err));
+
+			.catch((err) => {
+				console.error(err);
+				if (err.response) {
+					console.error("Response error:", err.response.data);
+				}
+			});
 	};
 
-	// function reset() {
-	// 	setElapsedTime(0);
-	// 	setIsRunning(false);
-	// 	setIsPaused(false);
-	// }
 	function formatTime() {
 		let hours = Math.floor(elapsedTime / 3600000);
-		let minutes = Math.floor((elapsedTime % 360000) / 60000);
+		let minutes = Math.floor((elapsedTime % 3600000) / 60000);
 		let seconds = Math.floor((elapsedTime % 60000) / 1000);
 
 		hours = String(hours).padStart(2, "0");
@@ -83,42 +111,20 @@ export default function StopWatch() {
 
 		return `${hours}:${minutes}:${seconds}`;
 	}
-	function getDate() {
-		const today = new Date();
-		const monthNames = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
-		let monthIndex = today.getMonth();
-		let monthName = monthNames[monthIndex];
-		const year = today.getFullYear();
-		const date = today.getDate();
-		return `${date} ${monthName} ${year}`;
-	}
 
 	return (
 		<div className="h-full w-full">
 			<div className="flex flex-col items-center h-full">
-				<div className="flex flex-col items-center  p-[30px] h-screen">
+				<div className="flex flex-col items-center p-[30px] h-screen">
 					<div
 						className={`text-[200px] font-mono font-bold ${
 							isRunning ? "text-gray-300" : "text-slate-400"
-						}  mt-40`}
+						} mt-40`}
 					>
 						{formatTime()}
 					</div>
 					<div className="text-gray-300">
-						<p className="tracking-widest mb-10 -mt-10 text-xl ">
+						<p className="tracking-widest mb-10 -mt-10 text-xl">
 							{currentDate}
 						</p>
 					</div>
@@ -126,19 +132,21 @@ export default function StopWatch() {
 					<div className="controlButton flex space-x-4">
 						{isPaused && (
 							<div className="flex items-center space-x-4 flex-col">
-								<Textarea placeholder="Type your message here." />
-
+								<Textarea
+									placeholder="Type your message here."
+									value={task}
+									onChange={(e) => setTask(e.target.value)}
+								/>
 								<Button onClick={handleSubmit} className="mt-10 w-40">
 									Submit
 								</Button>
 							</div>
 						)}
 						{!isRunning && !isPaused && (
-							<Button onClick={start} className="w-40 ">
+							<Button onClick={start} className="w-40">
 								Start
 							</Button>
 						)}
-
 						{isRunning && (
 							<Button onClick={stop} className="w-40">
 								Stop
