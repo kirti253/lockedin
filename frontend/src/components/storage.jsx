@@ -7,7 +7,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Button } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
@@ -58,44 +57,29 @@ export default function Card() {
 	}, [refreshFlag]);
 
 	// Delete task functionality
-
-	const handleDelete = async (taskId, e) => {
+	const handleDelete = async (taskId) => {
+		console.log(taskId);
 		try {
 			const token = localStorage.getItem("token");
 			if (!token) {
 				throw new Error("Token is missing. Please log in.");
 			}
 
-			const response = await axios.delete(
-				"http://localhost:3000/tasklist/deletetask",
+			await axios.delete(
+				`http://localhost:3000/tasklist/deletetask?taskId=${taskId}`,
 				{
-					headers: {
-						Authorization: token,
-					},
-					data: { taskId },
+					headers: { Authorization: token },
 				}
 			);
 
 			if (response.status === 200) {
-				// Optimistic UI update
-				setTasks((prevTasks) =>
-					prevTasks.filter((task) => task._id !== taskId)
-				);
-
+				setTasks(tasks.filter((task) => task._id !== taskId)); // Remove task from UI
 				alert("Task deleted successfully");
 			}
 		} catch (error) {
 			console.error("Error deleting task:", error);
-			if (error.response) {
-				alert(
-					error.response.data.message ||
-						"Failed to delete task. Please try again."
-				);
-			} else {
-				alert("Failed to delete task. Please try again.");
-			}
+			alert("Failed to delete task. Please try again.");
 		}
-		e.stopPropagation(); // Stopping propagation to avoid event interference
 	};
 
 	return (
@@ -116,8 +100,6 @@ export default function Card() {
 				<TableBody>
 					{tasks.map((task, index) => (
 						<TableRow key={task._id}>
-							{" "}
-							{/* Ensure this key is correct */}
 							<TableCell className="font-medium">{index + 1}</TableCell>
 							<TableCell>
 								{task.date ? new Date(task.date).toLocaleDateString() : "N/A"}
@@ -126,30 +108,18 @@ export default function Card() {
 							<TableCell className="text-right">
 								{formatDuration(task.duration)}
 							</TableCell>
-							<TableCell
-								className="text-right"
-								onClick={(e) => {
-									console.log("Delete button clicked");
-									// handleDelete(task._id, e);
-								}}
-							>
-								<Button className="text-red-500 hover:text-red-700">
-									delete
-								</Button>
+							<TableCell className="text-right">
+								<button
+									onClick={() => handleDelete(task._id)}
+									className="text-red-500 hover:text-red-700"
+								>
+									<MdDelete size={24} />
+								</button>
 							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
-			<button
-				onClick={() => {
-					console.log("Delete button clicked");
-				}}
-				className="text-red-500 hover:text-red-700"
-				type="button"
-			>
-				delete
-			</button>
 		</div>
 	);
 }
