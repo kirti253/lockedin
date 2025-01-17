@@ -1,11 +1,15 @@
 {
-  "builds": [
+  "projects": [
     {
-      "src": "package.json",
+      "src": "frontend",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "backend",
+      "use": "@vercel/node"
     }
   ]
 }
