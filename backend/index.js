@@ -17,7 +17,7 @@ const { tasklistRouter } = require("./routes/tasklist");
 // CORS Configuration
 app.use(
   cors({
-    origin: "https://frontend-9sxidkkn2-kirtis-projects-806ba19e.vercel.app",
+    origin: "https://frontend-two-lac-54.vercel.app",
     methods: ["POST", "GET", "DELETE"],
     credentials: true,
   })
