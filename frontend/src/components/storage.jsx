@@ -70,7 +70,7 @@ export default function Card() {
 
       // Capture the response from the DELETE request
       const response = await axios.delete(
-        `https://time-tracer-nine.vercel.app/tasklist/deletetask?taskId=${taskId}`,
+        `https://time-back-d1gr271ze-kirtis-projects-806ba19e.vercel.app/tasklist/deletetask?taskId=${taskId}`,
         {
           headers: { Authorization: token },
         }

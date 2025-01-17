@@ -37,11 +37,14 @@ export default function SignUp() {
     }
 
     try {
-      await axios.post("https://time-tracer-nine.vercel.app/user/signup", {
-        username,
-        email,
-        password,
-      });
+      await axios.post(
+        "https://time-back-d1gr271ze-kirtis-projects-806ba19e.vercel.app/user/signup",
+        {
+          username,
+          email,
+          password,
+        }
+      );
       navigate("/signin");
     } catch (err) {
       console.error("Error response:", err.response);
