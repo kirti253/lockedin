@@ -4,7 +4,7 @@ import { GrInstagram } from "react-icons/gr";
 
 export default function Footer() {
 	return (
-		<footer className="bg-black text-white py-8 border-t border-gray-700">
+		<footer className="bg-black text-white pt-8 border-t bottom-0  border-gray-700">
 			<div className="container mx-auto px-4">
 				{/* Footer Top Section */}
 				<div className="flex flex-col md:flex-row justify-center items-center text-center ">
@@ -17,9 +17,9 @@ export default function Footer() {
 				</div>
 
 				{/* Social Links Section */}
-				<div className="flex  md:flex-row justify-between items-center mt-6">
+				<div className="flex  md:flex-row justify-between items-center mt-6 mb-2">
 					{/* Aditya's Profiles */}
-					<div className="mb-6 md:mb-0">
+					<div>
 						<p className="font-semibold text-center  tracking-wider">Aditya</p>
 						<div className="flex justify-center md:justify-start space-x-4 mt-2">
 							<a
@@ -50,7 +50,7 @@ export default function Footer() {
 					</div>
 
 					{/* Kirti's Profiles */}
-					<div className="mb-6 md:mb-0">
+					<div>
 						<p className="font-semibold text-center  tracking-wider">Kirti</p>
 						<div className="flex justify-center md:justify-start space-x-4 mt-2">
 							<a

@@ -58,8 +58,9 @@ export default function StopWatch() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const token = localStorage.getItem("token");
+
 		if (!token) {
-			console.error("Token is missing. Please sign in again.");
+			alert("You must be logged in to submit a task.");
 			return;
 		}
 
