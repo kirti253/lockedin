@@ -4,79 +4,85 @@ import { GrInstagram } from "react-icons/gr";
 
 export default function Footer() {
 	return (
-		<div>
-			<footer className="bg-transparent text-white py-4 border-t-2  border-gray-700">
-				<div className="container mx-auto px-4 w-screen">
-					<p className="text-center text-sm mb-4 tracking-wider">
-						Created by Aditya Pant and Kirti
-					</p>
-					<div className="flex justify-between space-x-8">
-						{/* Your Profiles */}
-						<div className="mr-20">
-							<p className="font-semibold text-center tracking-wider">Aditya</p>
-							<div className="flex justify-between w-20 mt-5 ">
-								<a
-									href="https://github.com/AdityaaPant"
-									target="_blank"
-									rel="noopener noreferrer"
-									className=" transition-colors"
-								>
-									<FaGithub size={18} />
-								</a>
-								<a
-									href="https://x.com/adityapant_ "
-									target="_blank"
-									rel="noopener noreferrer"
-									className=" transition-colors"
-								>
-									<RiTwitterXLine size={18} />
-								</a>
-								<a
-									href="https://www.instagram.com/adityapant_/ "
-									target="_blank"
-									rel="noopener noreferrer"
-									className=" transition-colors"
-								>
-									<GrInstagram size={18} />
-								</a>
-							</div>
-						</div>
+		<footer className="bg-black text-white py-8 border-t border-gray-700">
+			<div className="container mx-auto px-4">
+				{/* Footer Top Section */}
+				<div className="flex flex-col md:flex-row justify-center items-center text-center ">
+					<div className="mb-6 md:mb-0">
+						<p className="text-sm tracking-wider font-light">
+							Created by <span className="font-medium">Aditya Pant</span> and{" "}
+							<span className="font-medium">Kirti</span>
+						</p>
+					</div>
+				</div>
 
-						{/* Friend's Profiles */}
-						<div className="">
-							<p className="0 font-semibold text-center tracking-wider">
-								Kirti
-							</p>
-							<div className="flex  justify-between  w-20 mt-5">
-								<a
-									href="https://github.com/kirti253"
-									target="_blank"
-									rel="noopener noreferrer"
-									className=" transition-colors"
-								>
-									<FaGithub size={18} />
-								</a>
-								<a
-									href="https://x.com/Kirti_253"
-									target="_blank"
-									rel="noopener noreferrer"
-									className=" transition-colors"
-								>
-									<RiTwitterXLine size={18} />
-								</a>
-								<a
-									href="https://www.instagram.com/_kkirtiii_/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className=" transition-colors"
-								>
-									<GrInstagram size={18} />
-								</a>
-							</div>
+				{/* Social Links Section */}
+				<div className="flex  md:flex-row justify-between items-center mt-6">
+					{/* Aditya's Profiles */}
+					<div className="mb-6 md:mb-0">
+						<p className="font-semibold text-center  tracking-wider">Aditya</p>
+						<div className="flex justify-center md:justify-start space-x-4 mt-2">
+							<a
+								href="https://github.com/AdityaaPant"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-gray-400 transition-colors"
+							>
+								<FaGithub size={24} />
+							</a>
+							<a
+								href="https://x.com/adityapant_"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-gray-400 transition-colors"
+							>
+								<RiTwitterXLine size={24} />
+							</a>
+							<a
+								href="https://www.instagram.com/adityapant_/"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-gray-400 transition-colors"
+							>
+								<GrInstagram size={24} />
+							</a>
+						</div>
+					</div>
+
+					{/* Kirti's Profiles */}
+					<div className="mb-6 md:mb-0">
+						<p className="font-semibold text-center  tracking-wider">Kirti</p>
+						<div className="flex justify-center md:justify-start space-x-4 mt-2">
+							<a
+								href="https://github.com/kirti253"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-gray-400 transition-colors"
+							>
+								<FaGithub size={24} />
+							</a>
+							<a
+								href="https://x.com/Kirti_253"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-gray-400 transition-colors"
+							>
+								<RiTwitterXLine size={24} />
+							</a>
+							<a
+								href="https://www.instagram.com/_kkirtiii_/"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-gray-400 transition-colors"
+							>
+								<GrInstagram size={24} />
+							</a>
 						</div>
 					</div>
 				</div>
-			</footer>
-		</div>
+			</div>
+
+			{/* Footer Bottom Section */}
+		</footer>
 	);
 }

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { MdDelete } from "react-icons/md";
 import { useRefresh } from "./refresh";
 
 const formatDuration = (durationInMs) => {
@@ -29,7 +30,7 @@ export default function Card() {
 		try {
 			const token = localStorage.getItem("token");
 			if (!token) {
-				throw new Error("Token is missing . please log in");
+				throw new Error("Token is missing. Please log in.");
 			}
 			const response = await axios.get("http://localhost:3000/tasklist/list", {
 				headers: {
@@ -44,6 +45,7 @@ export default function Card() {
 			setLoading(false);
 		}
 	};
+
 	useEffect(() => {
 		fetchTasks();
 	}, []);
@@ -54,12 +56,50 @@ export default function Card() {
 		}
 	}, [refreshFlag]);
 
+	// Delete task functionality
+	const handleDelete = async (taskId) => {
+		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				throw new Error("Token is missing. Please log in.");
+			}
+
+			const response = await axios.delete(
+				"http://localhost:3000/tasklist/deletetask",
+				{
+					headers: {
+						Authorization: token,
+					},
+					data: { taskId },
+				}
+			);
+			console.log(taskId);
+			if (response.status === 200) {
+				// Optimistically update the UI
+				setTasks((prevTasks) =>
+					prevTasks.filter((task) => task._id !== taskId)
+				);
+				// Show success message (toast, modal, etc.)
+				alert("Task deleted successfully");
+			}
+		} catch (error) {
+			console.error("Error deleting task:", error);
+
+			if (error.response) {
+				// Display backend error message (if available)
+				alert(
+					error.response.data.message ||
+						"Failed to delete task. Please try again."
+				);
+			} else {
+				alert("Failed to delete task. Please try again.");
+			}
+		}
+	};
+
 	return (
-		<div
-			className="h-full mb-20 
-		"
-		>
-			<h2 className="text-muted-foreground    text-center">
+		<div className="h-full mb-20">
+			<h2 className="text-muted-foreground text-center">
 				A list of your recent tasks.
 			</h2>
 			<Table className="w-11/12 mx-auto">
@@ -69,6 +109,7 @@ export default function Card() {
 						<TableHead className="w-[120px]">Date</TableHead>
 						<TableHead>Title</TableHead>
 						<TableHead className="text-right">Time Duration</TableHead>
+						<TableHead className="text-right">Actions</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -80,13 +121,20 @@ export default function Card() {
 							</TableCell>
 							<TableCell>{task.title}</TableCell>
 							<TableCell className="text-right">
-								{formatDuration(task.duration)}{" "}
+								{formatDuration(task.duration)}
+							</TableCell>
+							<TableCell className="text-right">
+								<button
+									onClick={() => handleDelete(task._id)}
+									className="text-red-500 hover:text-red-700"
+								>
+									delete
+								</button>
 							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
-			<div></div>
 		</div>
 	);
 }
