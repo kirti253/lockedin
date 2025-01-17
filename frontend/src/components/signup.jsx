@@ -62,7 +62,7 @@ export default function SignUp() {
           <div className="flex flex-col items-center md:items-start md:w-1/2">
             <img
               className="rounded-md w-64 md:w-96 mb-6 md:mb-0"
-              src="/src/assets/signup.svg"
+              src="/assets/signup.svg"
               alt="Sign Up"
             />
             <p className="text-white text-center md:text-left mt-4">

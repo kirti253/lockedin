@@ -71,7 +71,7 @@ export default function SignIn() {
         <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-10">
           <img
             className="rounded-md w-64 md:w-80"
-            src="/src/assets/signup.svg"
+            src="/assets/signup.svg"
             alt="Sign In"
           />
           <p className="text-gray-300">
