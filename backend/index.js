@@ -12,27 +12,27 @@ const { adminRouter } = require("./routes/admin");
 const { tasklistRouter } = require("./routes/tasklist");
 const cors = require("cors");
 app.use(
-	cors({
-		origin: "https://",
-		methods: ["POST", "GET", "DELETE"],
-		credentials: true,
-	})
+  cors({
+    origin: "https://timer-clk3vfe32-kirtis-projects-806ba19e.vercel.app",
+    methods: ["POST", "GET", "DELETE"],
+    credentials: true,
+  })
 );
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/tasklist", tasklistRouter);
 (async () => {
-	try {
-		await mongoose.connect(
-			process.env.MONGO_URL || "mongodb://localhost:27017"
-		);
-		console.log("Database connected successfully");
+  try {
+    await mongoose.connect(
+      process.env.MONGO_URL || "mongodb://localhost:27017"
+    );
+    console.log("Database connected successfully");
 
-		const port = process.env.PORT || 3000;
-		app.listen(port, () => {
-			console.log(`Server started at http://localhost:${port}`);
-		});
-	} catch (err) {
-		console.error("Error starting server:", err);
-	}
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`Server started at http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error("Error starting server:", err);
+  }
 })();
