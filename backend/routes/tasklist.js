@@ -63,6 +63,7 @@ tasklistRouter.get("/list", authMiddleware, async function (req, res) {
 
 tasklistRouter.delete("/deletetask", authMiddleware, async (req, res) => {
 	const { taskId } = req.body;
+	console.log(taskId);
 	if (!taskId) {
 		return res.status(400).json({ message: "Task ID is required" });
 	}
