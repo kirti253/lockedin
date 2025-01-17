@@ -33,7 +33,7 @@ export default function Card() {
         throw new Error("Token is missing. Please log in.");
       }
       const response = await axios.get(
-        "https://time-back-d1gr271ze-kirtis-projects-806ba19e.vercel.app/tasklist/list",
+        "https://time-back.vercel.app/tasklist/list",
         {
           headers: {
             Authorization: token,
@@ -70,7 +70,7 @@ export default function Card() {
 
       // Capture the response from the DELETE request
       const response = await axios.delete(
-        `https://time-back-d1gr271ze-kirtis-projects-806ba19e.vercel.app/tasklist/deletetask?taskId=${taskId}`,
+        `https://time-back.vercel.app/tasklist/deletetask?taskId=${taskId}`,
         {
           headers: { Authorization: token },
         }
