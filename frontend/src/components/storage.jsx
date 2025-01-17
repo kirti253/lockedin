@@ -7,6 +7,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
@@ -57,7 +58,8 @@ export default function Card() {
 	}, [refreshFlag]);
 
 	// Delete task functionality
-	const handleDelete = async (taskId) => {
+
+	const handleDelete = async (taskId, e) => {
 		try {
 			const token = localStorage.getItem("token");
 			if (!token) {
@@ -73,20 +75,18 @@ export default function Card() {
 					data: { taskId },
 				}
 			);
-			console.log(taskId);
+
 			if (response.status === 200) {
-				// Optimistically update the UI
+				// Optimistic UI update
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task._id !== taskId)
 				);
-				// Show success message (toast, modal, etc.)
+
 				alert("Task deleted successfully");
 			}
 		} catch (error) {
 			console.error("Error deleting task:", error);
-
 			if (error.response) {
-				// Display backend error message (if available)
 				alert(
 					error.response.data.message ||
 						"Failed to delete task. Please try again."
@@ -95,6 +95,7 @@ export default function Card() {
 				alert("Failed to delete task. Please try again.");
 			}
 		}
+		e.stopPropagation(); // Stopping propagation to avoid event interference
 	};
 
 	return (
@@ -115,6 +116,8 @@ export default function Card() {
 				<TableBody>
 					{tasks.map((task, index) => (
 						<TableRow key={task._id}>
+							{" "}
+							{/* Ensure this key is correct */}
 							<TableCell className="font-medium">{index + 1}</TableCell>
 							<TableCell>
 								{task.date ? new Date(task.date).toLocaleDateString() : "N/A"}
@@ -123,18 +126,30 @@ export default function Card() {
 							<TableCell className="text-right">
 								{formatDuration(task.duration)}
 							</TableCell>
-							<TableCell className="text-right">
-								<button
-									onClick={() => handleDelete(task._id)}
-									className="text-red-500 hover:text-red-700"
-								>
+							<TableCell
+								className="text-right"
+								onClick={(e) => {
+									console.log("Delete button clicked");
+									// handleDelete(task._id, e);
+								}}
+							>
+								<Button className="text-red-500 hover:text-red-700">
 									delete
-								</button>
+								</Button>
 							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
+			<button
+				onClick={() => {
+					console.log("Delete button clicked");
+				}}
+				className="text-red-500 hover:text-red-700"
+				type="button"
+			>
+				delete
+			</button>
 		</div>
 	);
 }
