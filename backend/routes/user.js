@@ -43,7 +43,7 @@ userRouter.post("/signup", async function (req, res) {
 userRouter.post("/signin", async function (req, res) {
   const requireBody = z.object({
     email: z.string().email(),
-    password: z.string().min(6),
+    password: z.string().min(3),
   });
 
   const parseDataWithSuccess = requireBody.safeParse(req.body);
