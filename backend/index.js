@@ -17,7 +17,7 @@ const { tasklistRouter } = require("./routes/tasklist");
 // CORS Configuration
 app.use(
   cors({
-    origin: "https://frontend-two-lac-54.vercel.app",
+    origin: "https://timetrackerr.vercel.app",
     methods: ["POST", "GET", "DELETE"],
     credentials: true,
   })
