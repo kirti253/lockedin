@@ -1,10 +1,10 @@
 const { Router } = require("express");
-const { userModel } = require("../db");
-
-const userRouter = Router();
+const { UserModel } = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const z = require("zod");
+
+const userRouter = Router();
 
 userRouter.post("/signup", async function (req, res) {
   const requireBody = z.object({
@@ -24,7 +24,7 @@ userRouter.post("/signup", async function (req, res) {
   const { username, email, password } = req.body;
   const hassPassword = await bcrypt.hash(password, 10);
   try {
-    await userModel.create({
+    await UserModel.create({
       username: username,
       email: email,
       password: hassPassword,
@@ -40,6 +40,7 @@ userRouter.post("/signup", async function (req, res) {
     });
   }
 });
+
 userRouter.post("/signin", async function (req, res) {
   const requireBody = z.object({
     email: z.string().email(),
@@ -56,7 +57,7 @@ userRouter.post("/signin", async function (req, res) {
   const { email, password } = req.body;
 
   try {
-    const user = await userModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(401).json({
         message: "Incorrect credentials",

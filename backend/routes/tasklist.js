@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const tasklistRouter = Router();
-const { tasklistModel } = require("../db");
+const { TasklistModel } = require("../db");
 const { authMiddleware } = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -21,7 +21,7 @@ tasklistRouter.post("/task", authMiddleware, async function (req, res) {
   }
   const { title, duration, date } = parseResult.data;
   try {
-    const task = await tasklistModel.create({
+    const task = await TasklistModel.create({
       userId: req.userId,
       title,
       duration,
@@ -38,7 +38,7 @@ tasklistRouter.post("/task", authMiddleware, async function (req, res) {
 });
 tasklistRouter.get("/list", authMiddleware, async function (req, res) {
   try {
-    const tasks = await tasklistModel.find({
+    const tasks = await TasklistModel.find({
       userId: req.userId,
     });
 
@@ -59,41 +59,33 @@ tasklistRouter.get("/list", authMiddleware, async function (req, res) {
     console.error("Error fetching tasks:", error);
 
     res.status(500).json({ message: "Internal server error" });
-    console.log(error);
   }
 });
 
 tasklistRouter.delete("/deletetask", authMiddleware, async (req, res) => {
   try {
-    console.log("Headers:", req.headers); // Log headers
-    console.log("Body:", req.body); // Log body
-    console.log("Query:", req.query); // Log query parameters
-
     const { taskId } = req.query; // Or req.query if using query string
-    console.log("Task ID:", taskId);
 
     if (!taskId) {
       return res.status(400).json({ message: "Task ID is required" });
     }
 
     // Find the task
-    const task = await tasklistModel.findOne({
+    const task = await TasklistModel.findOne({
       _id: taskId,
       userId: req.userId,
     });
 
     // If task not found
     if (!task) {
-      console.log("Task not found or unauthorized");
       return res
         .status(404)
         .json({ message: "Task not found or unauthorized" });
     }
 
     // Delete the task
-    await tasklistModel.deleteOne({ _id: task._id });
+    await TasklistModel.deleteOne({ _id: task._id });
 
-    console.log("Task deleted successfully");
     return res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
     console.error("Error in delete route:", error);
@@ -120,7 +112,7 @@ tasklistRouter.put("/update", authMiddleware, async function (req, res) {
 
   try {
     // Find and update the task in one operation
-    const updatedTask = await tasklistModel.findOneAndUpdate(
+    const updatedTask = await TasklistModel.findOneAndUpdate(
       { _id: taskId, userId: req.userId }, // Match conditions
       { title }, // Update title
       { new: true } // Return the updated task

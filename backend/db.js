@@ -25,12 +25,12 @@ const tasklistSchema = new Schema({
   duration: Number,
 });
 
-const userModel = mongoose.model("user", userSchema);
-const adminModel = mongoose.model("admin", adminSchmea);
-const tasklistModel = mongoose.model("task", tasklistSchema);
+const UserModel = mongoose.model("user", userSchema);
+const AdminModel = mongoose.model("admin", adminSchmea);
+const TasklistModel = mongoose.model("task", tasklistSchema);
 
 module.exports = {
-  userModel,
-  adminModel,
-  tasklistModel,
+  UserModel,
+  AdminModel,
+  TasklistModel,
 };

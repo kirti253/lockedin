@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routers
 const { healthcheckrouter } = require("./routes/healthcheck");
 const { userRouter } = require("./routes/user");
-const { adminRouter } = require("./routes/admin");
 const { tasklistRouter } = require("./routes/tasklist");
 
 // CORS Configuration
@@ -26,15 +25,13 @@ app.use(
 // Routes
 app.use("/", healthcheckrouter);
 app.use("/user", userRouter);
-app.use("/admin", adminRouter);
 app.use("/tasklist", tasklistRouter);
 
 // MongoDB Connection
 (async () => {
   try {
     await mongoose.connect(
-      process.env.MONGO_URL || "mongodb://localhost:27017",
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      process.env.MONGO_URL || "mongodb://localhost:27017"
     );
     console.log("Database connected successfully");
   } catch (err) {
